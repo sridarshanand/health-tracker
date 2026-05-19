@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import axios from 'axios'
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, BarChart, Bar } from 'recharts'
 import { TrendingUp, Activity, Scale, Moon, Footprints } from 'lucide-react'
+import api from '../api'
 
 const Dashboard = () => {
   const [stats, setStats] = useState(null)
@@ -15,7 +15,7 @@ const Dashboard = () => {
   const fetchStats = async () => {
     try {
       const token = localStorage.getItem('token')
-      const response = await axios.get('http://localhost:5000/api/health/stats/summary', {
+      const response = await api.get('/health/stats/summary', {
         headers: { Authorization: `Bearer ${token}` }
       })
       setStats(response.data)

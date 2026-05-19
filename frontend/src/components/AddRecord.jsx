@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import axios from 'axios'
 import { Plus, Check } from 'lucide-react'
+import api from '../api'
 
 const AddRecord = ({ onSuccess }) => {
   const [formData, setFormData] = useState({
@@ -33,7 +33,7 @@ const AddRecord = ({ onSuccess }) => {
 
     try {
       const token = localStorage.getItem('token')
-      await axios.post('http://localhost:5000/api/health', {
+      await api.post('/health', {
         weight: Number(formData.weight),
         height: Number(formData.height),
         bloodPressure: {

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import axios from 'axios'
 import { Trash2, Calendar, Scale, Heart, Activity } from 'lucide-react'
 import { format } from 'date-fns'
+import api from '../api'
 
 const RecordList = () => {
   const [records, setRecords] = useState([])
@@ -14,7 +14,7 @@ const RecordList = () => {
   const fetchRecords = async () => {
     try {
       const token = localStorage.getItem('token')
-      const response = await axios.get('http://localhost:5000/api/health', {
+      const response = await api.get('/health', {
         headers: { Authorization: `Bearer ${token}` }
       })
       setRecords(response.data)
@@ -30,7 +30,7 @@ const RecordList = () => {
     
     try {
       const token = localStorage.getItem('token')
-      await axios.delete(`http://localhost:5000/api/health/${id}`, {
+      await api.delete(`/health/${id}`, {
         headers: { Authorization: `Bearer ${token}` }
       })
       setRecords(records.filter(r => r._id !== id))
